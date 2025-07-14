@@ -13,9 +13,9 @@ const AsciiDonut = () => {
 
       const width = 120;
       const height = 40;
-      
       // Create buffers for output and z-buffer
       const output = new Array(width * height).fill(' ');
+      const colorBuffer = new Array(width * height).fill('');
       const zbuffer = new Array(width * height).fill(0);
 
       // Torus parameters
@@ -56,25 +56,47 @@ const AsciiDonut = () => {
             if (ooz > zbuffer[idx]) {
               zbuffer[idx] = ooz;
               
-              // Choose ASCII character based on luminance
+              // Choose ASCII character and color based on luminance
               const luminanceIndex = Math.floor(L * 8);
               const chars = '.,-~:;=!*#$@';
               output[idx] = chars[Math.max(0, Math.min(chars.length - 1, luminanceIndex))];
+              
+              // Map luminance to colors
+              const colors = [
+                '#1a0033', // Very dark purple
+                '#2d1b4e', // Dark purple
+                '#4a2c6b', // Medium purple
+                '#663d88', // Purple
+                '#8b5a9f', // Light purple
+                '#b078b6', // Pink-purple
+                '#d498cd', // Light pink
+                '#f9b8e4', // Very light pink
+                '#ffccff', // Lightest pink
+                '#ffffff'  // White (brightest)
+              ];
+              colorBuffer[idx] = colors[Math.max(0, Math.min(colors.length - 1, luminanceIndex))];
             }
           }
         }
       }
 
-      // Convert output array to string
+      // Convert output array to HTML with colors
       let result = '';
       for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
-          result += output[j + i * width];
+          const idx = j + i * width;
+          const char = output[idx];
+          const color = colorBuffer[idx];
+          if (color) {
+            result += `<span style="color: ${color}">${char}</span>`;
+          } else {
+            result += char;
+          }
         }
         result += '\n';
       }
 
-      preRef.current.textContent = result;
+      preRef.current.innerHTML = result;
 
       // Update rotation angles
       A += 0.04;
