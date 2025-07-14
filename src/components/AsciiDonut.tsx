@@ -11,8 +11,8 @@ const AsciiDonut = () => {
     const animate = () => {
       if (!preRef.current) return;
 
-      const width = 80;
-      const height = 22;
+      const width = 120;
+      const height = 40;
       
       // Create buffers for output and z-buffer
       const output = new Array(width * height).fill(' ');
@@ -22,7 +22,7 @@ const AsciiDonut = () => {
       const R1 = 1;    // Minor radius (tube radius)
       const R2 = 2;    // Major radius (distance from center to tube center)
       const K2 = 5;    // Distance from viewer
-      const K1 = width * K2 * 3 / (8 * (R1 + R2)); // Scale factor
+      const K1 = 80 * K2 * 3 / (8 * (R1 + R2)); // Scale factor - keep donut same size
 
       // Iterate through the torus
       for (let theta = 0; theta < 6.28; theta += 0.07) { // 0 to 2π
