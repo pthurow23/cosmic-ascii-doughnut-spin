@@ -11,8 +11,8 @@ const AsciiDonut = () => {
     const animate = () => {
       if (!preRef.current) return;
 
-      const width = 120;
-      const height = 35;
+      const width = 80;
+      const height = 22;
       
       // Create buffers for output and z-buffer
       const output = new Array(width * height).fill(' ');
@@ -96,10 +96,10 @@ const AsciiDonut = () => {
     <div className="flex items-center justify-center min-h-screen bg-background p-4">
       <div className="text-center">
         <h1 className="text-2xl font-bold mb-6 text-foreground">Rotating ASCII Donut</h1>
-        <div className="bg-black p-6 rounded-lg border shadow-lg">
+        <div className="bg-black p-12 rounded-lg border shadow-lg min-w-[800px] min-h-[400px] flex items-center justify-center">
           <pre
             ref={preRef}
-            className="text-green-400 font-mono text-xs leading-none whitespace-pre"
+            className="text-green-400 font-mono text-sm leading-none whitespace-pre"
             style={{ 
               fontFamily: 'Courier New, monospace',
               userSelect: 'none'
