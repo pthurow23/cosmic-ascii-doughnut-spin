@@ -11,8 +11,8 @@ const AsciiDonut = () => {
     const animate = () => {
       if (!preRef.current) return;
 
-      const width = 80;
-      const height = 22;
+      const width = 120;
+      const height = 35;
       
       // Create buffers for output and z-buffer
       const output = new Array(width * height).fill(' ');
